@@ -51,7 +51,7 @@ class PostsTableViewController: UIViewController, UITableViewDelegate, UITableVi
         (Hint): This should be pretty simple.
     */
     override func viewWillAppear(_ animated: Bool) {
-        // YOUR CODE HERE
+        postTableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -71,7 +71,19 @@ class PostsTableViewController: UIViewController, UITableViewDelegate, UITableVi
      
     */
     func updateData() {
-        // YOUR CODE HERE
+        getPosts(user: currentUser, completion: { postsArray in
+            clearThreads()
+            for singlePost:Post in postsArray! {
+                addPostToThread(post: singlePost)
+                getDataFromPath(path: singlePost.postImagePath, completion: { (dataforImage) -> Void in
+                    if let imageData = dataforImage {
+                        let image: UIImage = UIImage(data: imageData)!
+                        self.loadedImagesById[singlePost.postId] = image
+                    }
+                })
+            }
+        })
+        postTableView.reloadData()
     }
     
     // MARK: Custom methods (relating to UI)
@@ -90,7 +102,7 @@ class PostsTableViewController: UIViewController, UITableViewDelegate, UITableVi
             navigationController?.navigationBar.isHidden = true
             tabBarController?.tabBar.isHidden = true
         } else {
-            let hud = MBProgressHUD.showAdded(to: view, animated: true)
+            _ = MBProgressHUD.showAdded(to: view, animated: true)
             getDataFromPath(path: post.postImagePath, completion: { (data) in
                 if let data = data {
                     let image = UIImage(data: data)
@@ -143,9 +155,7 @@ class PostsTableViewController: UIViewController, UITableViewDelegate, UITableVi
         if let post = getPostFromIndexPath(indexPath: indexPath), !post.read {
             presentPostImage(forPost: post)
             post.read = true
-            
-            // YOUR CODE HERE
-            
+            currentUser.readPostIDs?.append(post.postId)
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }
      

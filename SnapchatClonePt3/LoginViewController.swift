@@ -42,7 +42,12 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         guard let emailText = emailField.text else { return }
         guard let passwordText = passwordField.text else { return }
         
-        // YOUR CODE HERE
+        FIRAuth.auth()?.signIn(withEmail: emailText, password: passwordText) { (user, error) in
+            if((error) != nil) {
+                let notificationAlert = UIAlertController(title: "Login Error", message: "Sign in Failed. Try Again.", preferredStyle: UIAlertControllerStyle.alert)
+                notificationAlert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.cancel, handler: nil))
+            }
+        }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -59,8 +59,12 @@ func addPost(postImage: UIImage, thread: String, username: String) {
     let dbRef = FIRDatabase.database().reference()
     let data = UIImageJPEGRepresentation(postImage, 1.0)! 
     let path = "\(firStorageImagesPath)/\(UUID().uuidString)"
-    
-    // YOUR CODE HERE
+    let toStore : [String: String] = ["date": NSDate.init().description,
+                                      "thread" : thread,
+                                      "username": username,
+                                      "imagePath" : path]
+    dbRef.child("Posts").childByAutoId().setValue(toStore)
+    store(data: data, toPath: path)
 }
 
 /*
@@ -73,8 +77,11 @@ func addPost(postImage: UIImage, thread: String, username: String) {
 */
 func store(data: Data, toPath path: String) {
     let storageRef = FIRStorage.storage().reference()
-    
-    // YOUR CODE HERE
+    _ = storageRef.put(data, metadata: nil) { (metadata, error) in
+        if ((error) != nil){
+            print(error ?? <#default value#>)
+        }
+    }
 }
 
 
@@ -98,8 +105,18 @@ func store(data: Data, toPath path: String) {
 func getPosts(user: CurrentUser, completion: @escaping ([Post]?) -> Void) {
     let dbRef = FIRDatabase.database().reference()
     var postArray: [Post] = []
-    
-    // YOUR CODE HERE
+    dbRef.child("Posts").observeSingleEvent(of: .value, with: { (snapshot) in
+        if let dictOfAllPosts = snapshot.value as? [String:AnyObject] {
+            for (id, _) in dictOfAllPosts {
+                var postDict :[String:String] = dictOfAllPosts[id] as! [String : String]
+                let postObj = Post(id: id, username: postDict[firUsernameNode]!, postImagePath: postDict[firImagePathNode]!, thread: postDict[firThreadNode]!, dateString: postDict[firDateNode]!, read: (user.readPostIDs?.contains(id))!)
+                postArray.append(postObj)
+            }
+            completion(postArray)
+        } else {
+            completion(nil)
+        }
+    })
 }
 
 func getDataFromPath(path: String, completion: @escaping (Data?) -> Void) {

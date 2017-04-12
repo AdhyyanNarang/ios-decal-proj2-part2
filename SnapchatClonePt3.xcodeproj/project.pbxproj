@@ -28,6 +28,8 @@
 		3CE8EC081E7F0DD2008108BB /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE8EC071E7F0DD2008108BB /* LoginViewController.swift */; };
 		3CE8EC0A1E7F0EA4008108BB /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE8EC091E7F0EA4008108BB /* SignupViewController.swift */; };
 		91A63278CB9C0CB03B21A0FE /* Pods_SnapchatClonePt3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2F44AFC87DA71B62C85089D6 /* Pods_SnapchatClonePt3.framework */; };
+		B25261121E9D797E00A01CED /* ImageFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE750A51E7E7D970076B31F /* ImageFeed.swift */; };
+		B25261131E9D797E00A01CED /* ImageFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE750A51E7E7D970076B31F /* ImageFeed.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -315,7 +317,7 @@
 				TargetAttributes = {
 					3CE750711E7E7D540076B31F = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = RVK9ZS9JS2;
+						DevelopmentTeam = K9EE648G4U;
 						ProvisioningStyle = Automatic;
 					};
 					3CE750851E7E7D550076B31F = {
@@ -423,7 +425,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -455,6 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CE7508B1E7E7D550076B31F /* SnapchatClonePt3Tests.swift in Sources */,
+				B25261121E9D797E00A01CED /* ImageFeed.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +466,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CE750961E7E7D550076B31F /* SnapchatClonePt3UITests.swift in Sources */,
+				B25261131E9D797E00A01CED /* ImageFeed.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,11 +601,11 @@
 			baseConfigurationReference = 0926D8EC80A6E276BA9FEA56 /* Pods-SnapchatClonePt3.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = RVK9ZS9JS2;
+				DEVELOPMENT_TEAM = K9EE648G4U;
 				INFOPLIST_FILE = SnapchatClonePt3/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.iosdecal.SnapchatClonePt3;
+				PRODUCT_BUNDLE_IDENTIFIER = "adhyyan-n.SnapchatClonePt3";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -612,11 +616,11 @@
 			baseConfigurationReference = ED032DBB9547494D3448A63F /* Pods-SnapchatClonePt3.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = RVK9ZS9JS2;
+				DEVELOPMENT_TEAM = K9EE648G4U;
 				INFOPLIST_FILE = SnapchatClonePt3/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = org.iosdecal.SnapchatClonePt3;
+				PRODUCT_BUNDLE_IDENTIFIER = "adhyyan-n.SnapchatClonePt3";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
