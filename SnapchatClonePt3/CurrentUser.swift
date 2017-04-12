@@ -35,12 +35,15 @@ class CurrentUser {
         var postArray: [String] = []
         dbRef.child("Users").child(id).child("readPosts").observeSingleEvent(of: .value, with: { (snapshot) in
             // Get the list of readPosts
-            let dictOfRead = snapshot.value as? [String:AnyObject]
-            for (_,value) in dictOfRead! {
+            if let dictOfRead = snapshot.value as? [String:AnyObject]{
+            for (_,value) in dictOfRead {
                 postArray.append(value as! String)
             }
+            }
+            completion(postArray)
         })
-        completion(postArray)
+        //completion(postArray)
+        
     }
     
     /*

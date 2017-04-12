@@ -79,7 +79,7 @@ func store(data: Data, toPath path: String) {
     let storageRef = FIRStorage.storage().reference()
     _ = storageRef.put(data, metadata: nil) { (metadata, error) in
         if ((error) != nil){
-            print(error ?? <#default value#>)
+            //print(error)
         }
     }
 }
@@ -107,12 +107,14 @@ func getPosts(user: CurrentUser, completion: @escaping ([Post]?) -> Void) {
     var postArray: [Post] = []
     dbRef.child("Posts").observeSingleEvent(of: .value, with: { (snapshot) in
         if let dictOfAllPosts = snapshot.value as? [String:AnyObject] {
-            for (id, _) in dictOfAllPosts {
-                var postDict :[String:String] = dictOfAllPosts[id] as! [String : String]
-                let postObj = Post(id: id, username: postDict[firUsernameNode]!, postImagePath: postDict[firImagePathNode]!, thread: postDict[firThreadNode]!, dateString: postDict[firDateNode]!, read: (user.readPostIDs?.contains(id))!)
-                postArray.append(postObj)
-            }
-            completion(postArray)
+            user.getReadPostIDs(completion: { (readPostsArray) in
+                for (id, _) in dictOfAllPosts {
+                    var postDict = dictOfAllPosts[id] as! [String : String]
+                    let postObj = Post(id: id, username: postDict[firUsernameNode]!, postImagePath: postDict[firImagePathNode]!, thread: postDict[firThreadNode]!, dateString: postDict[firDateNode]!, read: readPostsArray.contains(id))
+                    postArray.append(postObj)
+                }
+                completion(postArray)
+            })
         } else {
             completion(nil)
         }

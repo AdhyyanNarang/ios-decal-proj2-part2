@@ -51,7 +51,7 @@ class PostsTableViewController: UIViewController, UITableViewDelegate, UITableVi
         (Hint): This should be pretty simple.
     */
     override func viewWillAppear(_ animated: Bool) {
-        postTableView.reloadData()
+        updateData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,8 +82,9 @@ class PostsTableViewController: UIViewController, UITableViewDelegate, UITableVi
                     }
                 })
             }
+            self.postTableView.reloadData()
         })
-        postTableView.reloadData()
+        
     }
     
     // MARK: Custom methods (relating to UI)
@@ -152,13 +153,18 @@ class PostsTableViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // TODO: add the selected post as one of the current user's read posts
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //let dbRef = FIRDatabase.database().reference()
+        
+        
         if let post = getPostFromIndexPath(indexPath: indexPath), !post.read {
             presentPostImage(forPost: post)
             post.read = true
             currentUser.readPostIDs?.append(post.postId)
+            currentUser.addNewReadPost(postID: post.postId)
             tableView.reloadRows(at: [indexPath], with: .automatic)
+            
         }
-     
+        
     }
     
 }
